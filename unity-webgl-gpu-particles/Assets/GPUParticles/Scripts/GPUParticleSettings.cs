@@ -2,6 +2,9 @@ using SpatialSys.UnitySDK;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class GPUParticleSettings : MonoBehaviour
 {
@@ -90,7 +93,23 @@ public class GPUParticleSettings : MonoBehaviour
     [ContextMenu(nameof(GetParticleBatches))]
     public void GetParticleBatches()
     {
-        _particleBatches = FindObjectsOfType<GPUParticleBatch>();
+        _particleBatches = FindObjectsByType<GPUParticleBatch>(FindObjectsSortMode.None);
     }
 #endif
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(GPUParticleSettings))]
+public class GPUParticleSettingsInspector : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+
+        if (GUILayout.Button("GetParticleBatches"))
+        {
+            ((GPUParticleSettings)target).GetParticleBatches();
+        }
+    }
+}
+#endif

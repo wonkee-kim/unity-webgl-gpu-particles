@@ -47,6 +47,14 @@ public class GPUParticleBatch : MonoBehaviour
     private void Setup()
     {
         _instanceCountCached = _instanceCount;
+        if (_rt1 != null)
+        {
+            Destroy(_rt1);
+        }
+        if (_rt2 != null)
+        {
+            Destroy(_rt2);
+        }
         _rt1 = new RenderTexture(_instanceCount, 2, 0, RenderTextureFormat.ARGBFloat); // y0: position, y1: velocity
         _rt2 = new RenderTexture(_instanceCount, 2, 0, RenderTextureFormat.ARGBFloat);
 
@@ -63,7 +71,6 @@ public class GPUParticleBatch : MonoBehaviour
             float random1 = Random.Range(0f, 1f);
             float random2 = Random.Range(0f, 1f);
             Vector3 position = new Vector3(Mathf.Cos(angle) * distance, height, Mathf.Sin(angle) * distance);
-            // Vector3 velocity = new Vector3(Random.Range(-4f, 4f), Random.Range(-4f, 4f), Random.Range(-4f, 4f));
             Vector3 velocity = new Vector3(Mathf.Cos(angle) * 10f, Random.Range(1f, 4f), Mathf.Sin(angle) * 10f);
             colors[i] = new Color(position.x, position.y, position.z, random1);
             colors[i + _instanceCount] = new Color(velocity.x, velocity.y, velocity.z, random2);
@@ -75,7 +82,7 @@ public class GPUParticleBatch : MonoBehaviour
         texture.SetPixels(colors);
         texture.Apply();
         Graphics.Blit(texture, _rt1);
-        // Destroy(texture);
+        Destroy(texture);
     }
 
     private void Update()
@@ -111,7 +118,6 @@ public class GPUParticleBatch : MonoBehaviour
         _materialDraw.SetFloatArray(PROP_RANDOM_SPEEDS, _randomValue);
         _materialDraw.SetVector(PROP_PARTICLE_SIZE, GPUParticleSettings.particleSize);
         _materialDraw.SetFloat(PROP_PARTICLE_BRIGHTNESS, GPUParticleSettings.particleBrightness);
-        // Graphics.DrawMeshInstancedProcedural(_mesh, 0, _materialDraw, new Bounds(Vector3.zero, Vector3.one * 100), _instanceCount, null, UnityEngine.Rendering.ShadowCastingMode.Off, false, 0, null
-        Graphics.DrawMeshInstancedProcedural(_mesh, 0, _materialDraw, new Bounds(Vector3.zero, Vector3.one * 100), _instanceCount);
+        Graphics.DrawMeshInstancedProcedural(_mesh, 0, _materialDraw, new Bounds(Vector3.zero, Vector3.one * 100), _instanceCount, null, UnityEngine.Rendering.ShadowCastingMode.Off, false, 0, null, UnityEngine.Rendering.LightProbeUsage.Off, null);
     }
 }
