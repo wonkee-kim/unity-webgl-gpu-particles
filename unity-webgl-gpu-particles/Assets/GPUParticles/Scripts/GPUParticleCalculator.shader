@@ -75,9 +75,10 @@ Shader "GPUParticle/GPUParticleCalculator"
                 brightness = max(brightness, 0.2);
 
                 float3 pos = position.xyz + velocity.xyz * _DeltaTime;
-                if(pos.y - position.w * 0.5 < 0)
+                float positionFromFloor = pos.y - position.w * 0.5;
+                if(positionFromFloor < 0)
                 {
-                    pos.y = position.w * 0.5;
+                    pos.y = -positionFromFloor;
                     vel.y = _ParticleSpeedArgs.w * speed * saturate(1.0 - distance / 30) * 2;
                     brightness = 2;
                 }
