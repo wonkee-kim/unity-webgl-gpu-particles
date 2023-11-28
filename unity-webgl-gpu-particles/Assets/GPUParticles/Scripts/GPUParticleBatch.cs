@@ -99,8 +99,7 @@ public class GPUParticleBatch : MonoBehaviour
         }
         else
         {
-            // targetPosition = SpatialBridge.GetLocalAvatarPosition();
-            targetPosition = ClientBridge.GetLocalAvatarPosition();
+            targetPosition = SpatialBridge.GetLocalAvatarPosition();
         }
 
         // Calculate positions using Blit instead of ComputeShader (WebGL doesn't support ComputeShader)

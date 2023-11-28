@@ -72,7 +72,7 @@ public class GPUParticleSettings : MonoBehaviour
     private void Update()
     {
 #if !UNITY_EDITOR
-        if (!_isSpatialInitialized && ClientBridge.GetIsSceneInitialized())
+        if (!_isSpatialInitialized && SpatialBridge.GetIsSceneInitialized())
         {
             _isSpatialInitialized = true;
             _useCapsule = false;
