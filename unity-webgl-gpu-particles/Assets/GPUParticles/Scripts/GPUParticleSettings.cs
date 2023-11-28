@@ -43,6 +43,7 @@ public class GPUParticleSettings : MonoBehaviour
             instance = this;
         }
 
+        _virtualCamera.SetActive(_toggleView.isOn);
         _toggleView.onValueChanged.AddListener((value) => { _virtualCamera.SetActive(value); });
 
         if (_particleBatches != null && _particleBatches.Length > 0)
