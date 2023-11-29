@@ -11,6 +11,8 @@ public class GPUParticleBatch : MonoBehaviour
     private static int PROP_RT_DATA = Shader.PropertyToID("_RTData");
     private static int PROP_PARTICLE_SIZE = Shader.PropertyToID("_ParticleSize");
     private static int PROP_PARTICLE_BRIGHTNESS = Shader.PropertyToID("_ParticleBrightness");
+    private static int PROP_PARTICLE_GRAVITY = Shader.PropertyToID("_GravityIntensity");
+    private static int PROP_PARTICLE_EXPLOSION = Shader.PropertyToID("_ParticleExplosion");
 
     private const int MAX_INSTANCE_COUNT = 512; // Max count depends on other data (max is 1000 if there is no other data)
     public int instanceCount { get { return _instanceCount; } }
@@ -85,31 +87,23 @@ public class GPUParticleBatch : MonoBehaviour
         Destroy(texture);
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if (_instanceCountCached != _instanceCount)
         {
             Setup();
         }
 
-        Vector3 targetPosition;
-        if (GPUParticleSettings.useCapsule)
-        {
-            targetPosition = GPUParticleSettings.capsuleTransform.position;
-        }
-        else
-        {
-            targetPosition = SpatialBridge.GetLocalAvatarPosition();
-        }
-
         // Calculate positions using Blit instead of ComputeShader (WebGL doesn't support ComputeShader)
         RenderTexture rt1 = _rtSwitcher ? _rt2 : _rt1; // read
         RenderTexture rt2 = _rtSwitcher ? _rt1 : _rt2; // write
         _rtSwitcher = !_rtSwitcher;
-        _materialBlit.SetVector(PROP_TARGET_POSITION, targetPosition);
+        _materialBlit.SetVector(PROP_TARGET_POSITION, GPUParticleSettings.targetPosition);
         _materialBlit.SetFloat(PROP_DELTA_TIME, Time.deltaTime);
         _materialBlit.SetFloatArray(PROP_RANDOM_SPEEDS, _randomValue);
         _materialBlit.SetVector(PROP_PARTICLE_SPEED_ARGS, GPUParticleSettings.particleSpeedArgs);
+        _materialBlit.SetFloat(PROP_PARTICLE_GRAVITY, GPUParticleSettings.particleGravity);
+        _materialBlit.SetFloat(PROP_PARTICLE_EXPLOSION, GPUParticleSettings.particleExplosion);
         Graphics.Blit(rt1, rt2, _materialBlit);
 
         // Draw

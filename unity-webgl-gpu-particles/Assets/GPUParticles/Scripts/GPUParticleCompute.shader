@@ -38,6 +38,8 @@ Shader "GPUParticle/GPUParticleCompute"
             float _RandomValues[512];
 
             float4 _ParticleSpeedArgs; // xy: range, z: limit, w: bounceness
+            float _GravityIntensity;
+            float _ParticleExplosion;
 
             v2f vert (appdata v)
             {
@@ -59,20 +61,27 @@ Shader "GPUParticle/GPUParticleCompute"
                 float speed = _RandomValues[index] * (_ParticleSpeedArgs.y - _ParticleSpeedArgs.x) + _ParticleSpeedArgs.x;
                 float maxSpeed = _ParticleSpeedArgs.z;
 
-                // float3 vel = velocity.xyz * 0.99;
+                // Velocity
                 float3 vel = velocity.xyz;
                 float3 direction = (_TargetPosition - position.xyz);
                 float distance = length(direction);
                 vel = vel + direction * speed * _DeltaTime;
-                // vel.y -= 9.8 * distance * 0.1 * _DeltaTime;
+
+                // Gravity
+                vel.y -= 9.8 * _GravityIntensity * _DeltaTime;
+
                 if(length(vel) > maxSpeed)
                 {
                     vel = normalize(vel) * maxSpeed;
                 }
 
                 float brightness = velocity.w;
-                brightness -= 5 * _DeltaTime; // decrease brightness
-                brightness = max(brightness, 0.2);
+                brightness -= 15 * _DeltaTime; // decrease brightness
+                brightness = clamp(brightness, 0.2, 5);
+
+                // Explosion
+                vel += -direction/distance * 50 * _ParticleExplosion * _RandomValues[index];
+                brightness += _ParticleExplosion * 10;
 
                 float3 pos = position.xyz + velocity.xyz * _DeltaTime;
                 float positionFromFloor = pos.y - position.w * 0.5;
