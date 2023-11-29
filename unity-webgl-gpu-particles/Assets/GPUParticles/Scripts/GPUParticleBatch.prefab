@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db109de55ea7e47cbaa7de137fa49831, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _instanceCount: 512
+  _instanceCount: 990
   _materialBlitOriginal: {fileID: 2100000, guid: f50d74a5f22e74e609f19f610eba32fd,
     type: 2}
   _materialDrawOriginal: {fileID: 2100000, guid: ac1085d2b74e74ce0ba12e37c790a503,

@@ -14,7 +14,7 @@ public class GPUParticleBatch : MonoBehaviour
     private static int PROP_PARTICLE_GRAVITY = Shader.PropertyToID("_GravityIntensity");
     private static int PROP_PARTICLE_EXPLOSION = Shader.PropertyToID("_ParticleExplosion");
 
-    private const int MAX_INSTANCE_COUNT = 512; // Max count depends on other data (max is 1000 if there is no other data)
+    private const int MAX_INSTANCE_COUNT = 990; // Max count depends on other data (max is 1000 if there is no other data)
     public int instanceCount { get { return _instanceCount; } }
     [SerializeField, Range(1, MAX_INSTANCE_COUNT)] private int _instanceCount = MAX_INSTANCE_COUNT;
     private int _instanceCountCached = MAX_INSTANCE_COUNT;

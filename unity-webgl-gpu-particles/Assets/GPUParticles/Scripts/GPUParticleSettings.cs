@@ -136,6 +136,7 @@ public class GPUParticleSettings : MonoBehaviour
     public void GetParticleBatches()
     {
         _particleBatches = FindObjectsByType<GPUParticleBatch>(FindObjectsSortMode.None);
+        EditorUtility.SetDirty(this);
     }
 #endif
 }
