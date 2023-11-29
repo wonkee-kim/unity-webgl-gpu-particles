@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GPUParticleCalculator
+  m_Name: GPUParticleCompute
   m_Shader: {fileID: 4800000, guid: 5051925fea5044e9cb4df0e7d020b55f, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []

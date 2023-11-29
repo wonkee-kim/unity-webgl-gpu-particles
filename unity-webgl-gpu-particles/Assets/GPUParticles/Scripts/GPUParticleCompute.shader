@@ -1,4 +1,4 @@
-Shader "GPUParticle/GPUParticleCalculator"
+Shader "GPUParticle/GPUParticleCompute"
 {
     Properties
     {
