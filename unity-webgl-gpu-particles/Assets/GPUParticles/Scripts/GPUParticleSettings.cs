@@ -19,7 +19,7 @@ public class GPUParticleSettings : MonoBehaviour
     private bool _useCapsuleCached = true;
     [SerializeField] private Transform _capsuleTransform;
     [SerializeField] private Vector2 _particleSize = new Vector2(0.01f, 0.02f);
-    [SerializeField] private Vector4 _particleSpeedArgs = new Vector4(2f, 5f, 30f, 2f); // (xy: speedrange, z: limit, w: bounceness)
+    [SerializeField] private Vector4 _particleSpeedArgs = new Vector4(2f, 5f, 30f, 1f); // (xy: speedrange, z: limit, w: bounceness)
     [SerializeField] private float _particleBrightness = 2f;
 
     [Header("UI")]

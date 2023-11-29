@@ -9795,7 +9795,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _capsuleTransform: {fileID: 958909023}
   _particleSize: {x: 0.01, y: 0.02}
-  _particleSpeedArgs: {x: 2, y: 5, z: 30, w: 2}
+  _particleSpeedArgs: {x: 2, y: 5, z: 30, w: 1}
   _particleBrightness: 2
   _textParticleCount: {fileID: 873135930}
   _toggleView: {fileID: 1344692895}

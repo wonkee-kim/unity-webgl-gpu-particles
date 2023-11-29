@@ -79,8 +79,9 @@ Shader "GPUParticle/GPUParticleCompute"
                 if(positionFromFloor < 0)
                 {
                     pos.y = -positionFromFloor;
-                    vel.y = _ParticleSpeedArgs.w * speed * saturate(1.0 - distance / 30) * 2;
-                    brightness = 2;
+                    vel.y *= -1;
+                    vel.y += _ParticleSpeedArgs.w * speed * saturate(1.0 - distance / 30) * 2;
+                    brightness += 2;
                 }
 
                 // position
