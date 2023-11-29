@@ -35,7 +35,7 @@ Shader "GPUParticle/GPUParticleCompute"
             float _DeltaTime;
             float3 _TargetPosition;
 
-            float _RandomValues[256];
+            float _RandomValues[512];
 
             float4 _ParticleSpeedArgs; // xy: range, z: limit, w: bounceness
 
