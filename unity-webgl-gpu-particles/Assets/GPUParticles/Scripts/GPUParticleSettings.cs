@@ -109,7 +109,7 @@ public class GPUParticleSettings : MonoBehaviour
         }
         else
         {
-            _targetPosition = SpatialBridge.GetLocalAvatarPosition();
+            _targetPosition = SpatialBridge.actorService.localActor.avatar.position;
         }
         _targetPosition += new Vector3(Mathf.Cos(Time.time * _centerMoveSpeed[0]) * _centerMoveRadius[0], 0f, Mathf.Sin(Time.time * _centerMoveSpeed[0]) * _centerMoveRadius[0])
         + new Vector3(Mathf.Cos(Time.time * _centerMoveSpeed[1] * 0.5f) * _centerMoveRadius[1], Mathf.Sin(Time.time * _centerMoveSpeed[1] * 0.5f) * _centerMoveRadius[1], 0f);
